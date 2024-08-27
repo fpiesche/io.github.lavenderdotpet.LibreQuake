@@ -6,6 +6,7 @@ command: librequake.sh
 
 finish-args:
   - --device=dri
+  - --device=input
   - --share=ipc
   - --share=network
   - --socket=fallback-x11
