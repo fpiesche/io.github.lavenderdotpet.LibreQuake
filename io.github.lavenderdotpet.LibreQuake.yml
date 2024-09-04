@@ -6,7 +6,7 @@ command: librequake.sh
 
 finish-args:
   - --device=dri
-  - --device=input
+  - --device=all  # Change to device=input once resolved. See https://discourse.flathub.org/t/support-for-device-input/6645  and https://github.com/flatpak/flatpak/issues/5681
   - --share=ipc
   - --share=network
   - --socket=fallback-x11
