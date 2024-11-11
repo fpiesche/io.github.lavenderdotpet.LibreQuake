@@ -44,7 +44,7 @@ modules:
           type: json
           url: https://api.github.com/repos/lavenderdotpet/LibreQuake/releases/latest
           version-query: .tag_name
-          url-template: https://raw.githubusercontent.com/lavenderdotpet/LibreQuake/$version/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.svg
+          url-query: ("https://raw.githubusercontent.com/lavenderdotpet/LibreQuake/" + .tag_name + "/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.svg")
       - type: file
         url: https://raw.githubusercontent.com/lavenderdotpet/LibreQuake/v0.08-beta/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.desktop
         sha256: "0e02f35b97dc4a490d3a0055d4e2370739493ce63a001c3467b2f418fa8cb582"
@@ -53,7 +53,7 @@ modules:
           type: json
           url: https://api.github.com/repos/lavenderdotpet/LibreQuake/releases/latest
           version-query: .tag_name
-          url-template: https://raw.githubusercontent.com/lavenderdotpet/LibreQuake/$version/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.desktop
+          url-query: ("https://raw.githubusercontent.com/lavenderdotpet/LibreQuake/" + .tag_name + "/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.desktop")
       - type: file
         url: https://raw.githubusercontent.com/lavenderdotpet/LibreQuake/v0.08-beta/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.metainfo.xml
         sha256: "065f84f94b58354b2b6e6a913cfbd9cb11bd29894ba27d6780fc05b6210eb5ee"
@@ -62,7 +62,7 @@ modules:
           type: json
           url: https://api.github.com/repos/lavenderdotpet/LibreQuake/releases/latest
           version-query: .tag_name
-          url-template: https://raw.githubusercontent.com/lavenderdotpet/LibreQuake/$version/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.metainfo.xml
+          url-query: ("https://raw.githubusercontent.com/lavenderdotpet/LibreQuake/" + .tag_name + "/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.metainfo.xml")
       - type: script
         dest-filename: librequake.sh
         commands:
