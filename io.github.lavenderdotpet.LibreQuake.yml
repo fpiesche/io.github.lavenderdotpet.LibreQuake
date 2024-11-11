@@ -19,9 +19,15 @@ modules:
 
   - name: quakespasm
     sources:
-      - type: git
-        url: https://github.com/sezero/quakespasm.git
-        tag: quakespasm-0.96.3
+      - type: archive
+        url: https://api.github.com/repos/sezero/quakespasm/zipball/quakespasm-0.96.3
+        dest-filename: quakespasm.zip
+        sha256: 06a0e48c613388f51d05a0bb51afe027e15db012ec57615d82d5d6bbfd244066
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/sezero/quakespasm/releases/latest
+          version-query: .tag_name
+          url-query: .zipball_url
     no-autogen: true
     no-make-install: true
     subdir: Quake
