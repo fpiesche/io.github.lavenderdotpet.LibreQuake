@@ -1,0 +1,212 @@
+diff --git a/Quake/cmd.c b/Quake/cmd.c
+index 625a8efe..e96c2edb 100644
+--- a/Quake/cmd.c
++++ b/Quake/cmd.c
+@@ -782,7 +782,7 @@ void Load_Ghost_ID_f (void)
+ 
+ 	FILE* f;
+ 
+-	f = fopen(va("%s/id1/backups/ghost.txt", com_basedir), "r");
++	f = fopen(va("%s/backups/ghost.txt", getenv("XDG_DATA_HOME")), "r");
+ 
+ 	if (f == NULL) // lets not load backup
+ 	{
+diff --git a/Quake/common.c b/Quake/common.c
+index 7ea6fd7a..709badec 100644
+--- a/Quake/common.c
++++ b/Quake/common.c
+@@ -4486,9 +4486,9 @@ void Write_Log (const char* log_message, const char* filename)
+ 	char fname[MAX_OSPATH];
+ 
+ 	// Construct the full path of the file
+-	strncpy(fname, com_basedir, MAX_OSPATH - 1);
++	strncpy(fname, getenv("XDG_DATA_HOME"), MAX_OSPATH - 1);
+ 	fname[MAX_OSPATH - 1] = '\0';  // Ensure null termination
+-	strncat(fname, "/id1/backups/", MAX_OSPATH - strlen(fname) - 1);
++	strncat(fname, "/backups/", MAX_OSPATH - strlen(fname) - 1);
+ 	strncat(fname, filename, MAX_OSPATH - strlen(fname) - 1);
+ 
+ 	// Open the file in append+read mode
+@@ -4529,7 +4529,7 @@ void Write_List(filelist_item_t* list, const char* list_name) // woods #bookmark
+ 	char fname[MAX_OSPATH];
+ 	FILE* log_file;
+ 
+-	q_snprintf(fname, sizeof(fname), "%s/id1/backups/%s", com_basedir, list_name);
++	q_snprintf(fname, sizeof(fname), "%s/backups/%s", getenv("XDG_DATA_HOME"), list_name);
+ 
+ 	log_file = fopen(fname, "w");
+ 	if (!log_file)
+@@ -4713,4 +4713,4 @@ qboolean FS_IsCaseSensitive(void)
+ 	remove(testfile_upper); // Clean up uppercase version if it exists
+ 
+ 	return is_case_sensitive;
+-}
+\ No newline at end of file
++}
+diff --git a/Quake/console.c b/Quake/console.c
+index 33ddc7e4..3fe8f13a 100644
+--- a/Quake/console.c
++++ b/Quake/console.c
+@@ -465,12 +465,12 @@ void Ghost_ID_Backup_f (void)
+ 	char ghost[MAX_OSPATH];
+ 	char str[6];
+ 
+-	q_snprintf(ghost, sizeof(ghost), "%s/id1/backups", com_basedir); //  create backups folder if not there
++	q_snprintf(ghost, sizeof(ghost), "%s/backups", getenv("XDG_DATA_HOME")); //  create backups folder if not there
+ 	Sys_mkdir(ghost);
+ 
+ 	sprintf(str, "ghost");
+ 
+-	f = fopen(va("%s/id1/backups/%s.txt", com_basedir, str), "w");
++	f = fopen(va("%s/backups/%s.txt", getenv("XDG_DATA_HOME"), str), "w");
+ 
+ 	if (!f)
+ 	{
+@@ -2416,7 +2416,7 @@ void LOG_Init (quakeparms_t *parms)
+ 
+ 	inittime = time (NULL);
+ 	strftime (session, sizeof(session), "%m/%d/%Y %H:%M:%S", localtime(&inittime));
+-	q_snprintf (logfilename, sizeof(logfilename), "%s/qconsole.log", parms->basedir);
++	q_snprintf (logfilename, sizeof(logfilename), "%s/qconsole.log", parms->userdir);
+ 
+ //	unlink (logfilename);
+ 
+diff --git a/Quake/host_cmd.c b/Quake/host_cmd.c
+index 292ad3c0..f2c5a9c2 100644
+--- a/Quake/host_cmd.c
++++ b/Quake/host_cmd.c
+@@ -73,7 +73,7 @@ void Host_Quit_f (void)
+ 	Host_ShutdownServer(false);
+ 
+ 	if (!cl_afk.value) // if I disable it, lets delete it
+-		remove(va("%s/id1/backups/name.txt", com_basedir));
++		remove(va("%s/backups/name.txt", getenv("XDG_DATA_HOME")));
+ 
+ 	Sys_Quit ();
+ }
+@@ -291,7 +291,7 @@ void InitializeMapDescJSON(void)
+ 	char fname[MAX_OSPATH];
+ 	FILE* file;
+ 
+-	q_snprintf(fname, sizeof(fname), "%s/id1/backups/mapdesc.json", com_basedir);
++	q_snprintf(fname, sizeof(fname), "%s/backups/mapdesc.json", getenv("XDG_DATA_HOME"));
+ 
+ 	file = fopen(fname, "r");
+ 	if (file) {
+@@ -314,7 +314,7 @@ void SaveMapDescriptionsToJSON(filelist_item_t* extralevels)
+ 	char fname[MAX_OSPATH];
+ 	FILE* file;
+ 
+-	if (q_snprintf(fname, sizeof(fname), "%s/id1/backups/mapdesc.json", com_basedir) >= sizeof(fname)) {
++	if (q_snprintf(fname, sizeof(fname), "%s/backups/mapdesc.json", getenv("XDG_DATA_HOME")) >= sizeof(fname)) {
+ 		Con_DPrintf("Path too long for buffer\n");
+ 		return;
+ 	}
+@@ -373,7 +373,7 @@ void LoadMapDescriptionsFromJSON(filelist_item_t** extralevels_from_json)
+ 
+ 	InitializeMapDescJSON();
+ 
+-	q_snprintf(fname, sizeof(fname), "%s/id1/backups/mapdesc.json", com_basedir);
++	q_snprintf(fname, sizeof(fname), "%s/backups/mapdesc.json", getenv("XDG_DATA_HOME"));
+ 
+ 	file = fopen(fname, "rb");
+ 	if (!file) {
+@@ -750,13 +750,13 @@ void ServerList_Init(void)
+ 	int i;
+ 	char	name[MAX_OSPATH];
+ 
+-	q_snprintf(name, sizeof(name), "%s/id1", com_basedir); //  make an id1 folder if it doesnt exist already #smartafk
++	q_snprintf(name, sizeof(name), getenv("XDG_DATA_HOME")); //  make an id1 folder if it doesnt exist already #smartafk
+ 	Sys_mkdir(name);
+ 
+-	q_snprintf(name, sizeof(name), "%s/id1/backups", com_basedir); //  create backups folder if not there
++	q_snprintf(name, sizeof(name), "%s/backups", getenv("XDG_DATA_HOME")); //  create backups folder if not there
+ 	Sys_mkdir(name);
+ 
+-	FILE* file = fopen(va("%s/id1/backups/%s", com_basedir, SERVERLIST), "r");
++	FILE* file = fopen(va("%s/backups/%s", getenv("XDG_DATA_HOME"), SERVERLIST), "r");
+ 	
+ 	if (file == NULL) {
+ 		return;
+@@ -798,13 +798,13 @@ void BookmarksList_Init(void)
+ {
+ 	char	name[MAX_OSPATH];
+ 
+-	q_snprintf(name, sizeof(name), "%s/id1", com_basedir); //  make an id1 folder if it doesnt exist already #smartafk
++	q_snprintf(name, sizeof(name), getenv("XDG_DATA_HOME")); //  make an id1 folder if it doesnt exist already #smartafk
+ 	Sys_mkdir(name);
+ 
+-	q_snprintf(name, sizeof(name), "%s/id1/backups", com_basedir); //  create backups folder if not there
++	q_snprintf(name, sizeof(name), "%s/backups", getenv("XDG_DATA_HOME")); //  create backups folder if not there
+ 	Sys_mkdir(name);
+ 
+-	FILE* file = fopen(va("%s/id1/backups/%s", com_basedir, BOOKMARKSLIST), "r");
++	FILE* file = fopen(va("%s/backups/%s", getenv("XDG_DATA_HOME"), BOOKMARKSLIST), "r");
+ 
+ 	if (file == NULL) {
+ 		return;
+@@ -2534,13 +2534,13 @@ void Log_Last_Server_f(void)
+ 
+ 	char server[MAX_OSPATH];
+ 
+-	q_snprintf(server, sizeof(server), "%s/id1/backups", com_basedir); //  create backups folder if not there
++	q_snprintf(server, sizeof(server), "%s/backups", getenv("XDG_DATA_HOME")); //  create backups folder if not there
+ 	Sys_mkdir(server);
+ 
+ 	if (!q_strcasecmp(lastmphost, "local"))
+ 		return;
+ 
+-	f = fopen(va("%s/id1/backups/%s.txt", com_basedir, "lastserver"), "w");
++	f = fopen(va("%s/backups/%s.txt", getenv("XDG_DATA_HOME"), "lastserver"), "w");
+ 
+ 	if (!f)
+ 	{
+@@ -2563,7 +2563,7 @@ void Host_ConnectToLastServer_f (void) // woods #connectlast (Qrack)
+ 	FILE* f;
+ 	char name[NET_NAMELEN];
+ 
+-	f = fopen(va("%s/id1/backups/%s.txt", com_basedir, "lastserver"), "r+");
++	f = fopen(va("%s/backups/%s.txt", getenv("XDG_DATA_HOME"), "lastserver"), "r+");
+ 
+ 	if (f == NULL)
+ 	{
+@@ -3204,7 +3204,7 @@ void Host_Name_Backup_f(void)
+ 	char	name[MAX_OSPATH];
+ 	char str[24];
+ 
+-	q_snprintf(name, sizeof(name), "%s/id1/backups", com_basedir); //  create backups folder if not there
++	q_snprintf(name, sizeof(name), "%s/backups", getenv("XDG_DATA_HOME")); //  create backups folder if not there
+ 	Sys_mkdir(name);
+ 
+ 	sprintf(str, "name");
+@@ -3213,7 +3213,7 @@ void Host_Name_Backup_f(void)
+ 	// config.cfg cvars
+ 	if (host_initialized && !isDedicated && !host_parms->errstate)
+ 	{
+-		f = fopen(va("%s/id1/backups/%s.txt", com_basedir, str), "w");
++		f = fopen(va("%s/backups/%s.txt", getenv("XDG_DATA_HOME"), str), "w");
+ 
+ 		if (!f)
+ 		{
+@@ -3238,7 +3238,7 @@ void Host_Name_Load_Backup_f(void)
+ 
+ 	FILE* f;
+ 
+-		f = fopen(va("%s/id1/backups/name.txt", com_basedir), "r");
++		f = fopen(va("%s/backups/name.txt", getenv("XDG_DATA_HOME")), "r");
+ 
+ 		if (f == NULL) // lets not load backup
+ 		{
+diff --git a/Quake/iplog.c b/Quake/iplog.c
+index 246faa75..316a9cdf 100644
+--- a/Quake/iplog.c
++++ b/Quake/iplog.c
+@@ -52,7 +52,7 @@ void IPLog_Init (void)
+ 
+ 	// Attempt to load log data from iplog.dat
+ //	Sys_GetLock();
+-	f = fopen(va("%s/id1/iplog.dat",com_basedir), "r");
++	f = fopen(va("%s/iplog.dat", getenv("XDG_DATA_HOME")), "r");
+ 	if (f)
+ 	{
+ 		while(fread(&temp, 20, 1, f))

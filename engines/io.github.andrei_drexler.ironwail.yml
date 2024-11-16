@@ -1,0 +1,26 @@
+name: ironwail
+sources:
+  - type: archive
+    url: https://api.github.com/repos/andrei-drexler/ironwail/zipball/v0.8.0
+    sha256: d7fbbd94dad93d11834de52b39c9cd30399fd1a75f8ef0c53769081ea0e780bf
+    dest-filename: ironwail.zip
+    x-checker-data:
+      type: json
+      url: https://api.github.com/repos/andrei-drexler/ironwail/releases/latest
+      version-query: .tag_name
+      url-query: .zipball_url
+  - type: file
+    path: io.github.sezero.quakespasm.png
+  - type: patch
+    path: io.github.sezero.quakespasm.userdir_log.patch
+no-autogen: true
+no-make-install: true
+subdir: Quake
+make-args:
+  - DO_USERDIRS=1
+  - USE_SDL2=1
+  - LDFLAGS="-L/app/lib"
+post-install:
+  - install -D -m755 -t /app/bin/ ironwail
+  - install -D -m644 -t /app/bin/ ironwail.pak
+  - install -Dm644 ../io.github.sezero.quakespasm.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.quakespasm.png

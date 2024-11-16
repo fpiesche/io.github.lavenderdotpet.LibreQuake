@@ -1,0 +1,25 @@
+name: fteqw
+buildsystem: cmake-ninja
+sources:
+  - type: git
+    url: https://github.com/fte-team/fteqw.git
+    commit: 22b1bb2d41b57dd1d0e67a26e1bb882eaf3aa6d9
+    x-checker-data:
+      type: json
+      url: https://api.github.com/repos/fte-team/fteqw/branches/master
+      commit-query: .commit.sha
+  - type: file
+    path: org.fteqw.fteqw.png
+  - type: patch
+    path: org.fteqw.fteqw.fixpkgconfig.patch
+config-opts:
+  - -DFTE_INSTALL_BINDIR=bin
+  - -DFTE_TOOL_MASTER=false
+  - -DFTE_TOOL_QCC=true
+  - -DFTE_TOOL_IQM=false
+  - -DFTE_TOOL_IMAGE=false
+  - -DFTE_TOOL_QTV=false
+  - -DFTE_ENGINE_SERVER_ONLY=false
+build-commands:
+  - install -D -m755 fteqw /app/bin/fteqw
+  - install -Dm644 org.fteqw.fteqw.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.fteqw.png

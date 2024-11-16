@@ -1,0 +1,26 @@
+name: quakespasm
+sources:
+  - type: archive
+    url: https://api.github.com/repos/sezero/quakespasm/zipball/quakespasm-0.96.3
+    sha256: 06a0e48c613388f51d05a0bb51afe027e15db012ec57615d82d5d6bbfd244066
+    dest-filename: quakespasm.zip
+    x-checker-data:
+      type: json
+      url: https://api.github.com/repos/sezero/quakespasm/releases/latest
+      version-query: .tag_name | sub("quakespasm-"; "")
+      url-query: .zipball_url
+  - type: patch
+    path: io.github.sezero.quakespasm.userdir_log.patch
+  - type: file
+    path: io.github.sezero.quakespasm.png
+no-autogen: true
+no-make-install: true
+subdir: Quake
+make-args:
+  - DO_USERDIRS=1
+  - USE_SDL2=1
+  - LDFLAGS="-L/app/lib"
+post-install:
+  - install -D -m755 -t /app/bin/ quakespasm
+  - install -D -m644 -t /app/bin/ quakespasm.pak
+  - install -Dm644 ../io.github.sezero.quakespasm.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.quakespasm.png

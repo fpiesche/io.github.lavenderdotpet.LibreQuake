@@ -1,0 +1,20 @@
+name: tyrquake
+buildsystem: simple
+sources:
+  - type: archive
+    url: https://api.github.com/repos/sezero/tyrquake/zipball/c0553b4ca60b608b68c133faab4f2462f7c5c195
+    sha256: 42f88a9e21851c55684a7848435b5d2895af0d8f25b139f0a0e178a31214326d
+    dest-filename: tyrquake.zip
+    x-checker-data:
+      type: json
+      url: https://api.github.com/repos/sezero/tyrquake/releases/latest
+      version-query: .commit.sha
+      url-query: ("https://api.github.com/repos/sezero/tyrquake/zipball/" + .commit.sha)
+  - type: file
+    path: net.disenchant.tyrquake.png
+build-commands:
+  - make -j${FLATPAK_BUILDER_N_JOBS} VID_TARGET=sdl IN_TARGET=sdl DEBUG=Y bin/tyr-quake
+  - install -D -m755 bin/tyr-quake /app/bin/tyrquake
+  - make -j${FLATPAK_BUILDER_N_JOBS} VID_TARGET=sdl IN_TARGET=sdl DEBUG=Y bin/tyr-qwcl
+  - install -D -m755 bin/tyr-qwcl /app/bin/tyrqwcl
+  - install -Dm644 net.disenchant.tyrquake.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.tyrquake.png
