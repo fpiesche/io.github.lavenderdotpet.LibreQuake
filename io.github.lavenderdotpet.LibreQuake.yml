@@ -2,7 +2,7 @@ app-id: io.github.lavenderdotpet.LibreQuake
 runtime: org.freedesktop.Platform
 runtime-version: "23.08"
 sdk: org.freedesktop.Sdk
-command: librequake.sh
+command: io.github.lavenderdotpet.LibreQuake.sh
 
 finish-args:
   - --device=dri
@@ -16,28 +16,8 @@ finish-args:
 
 modules:
   - shared-modules/libmad/libmad.json
-
-  - name: quakespasm
-    sources:
-      - type: archive
-        url: https://api.github.com/repos/sezero/quakespasm/zipball/quakespasm-0.96.3
-        dest-filename: quakespasm.zip
-        sha256: 06a0e48c613388f51d05a0bb51afe027e15db012ec57615d82d5d6bbfd244066
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/sezero/quakespasm/releases/latest
-          version-query: .tag_name
-          url-query: .zipball_url
-    no-autogen: true
-    no-make-install: true
-    subdir: Quake
-    make-args:
-      - DO_USERDIRS=1
-      - USE_SDL2=1
-      - LDFLAGS="-L/app/lib"
-    post-install:
-      - install -D -m755 -t /app/bin/ quakespasm
-      - install -D -m644 -t /app/bin/ quakespasm.pak
+  - engines/io.github.sezero.quakespasm.yml
+  - engines/io.github.andrei_drexler.ironwail.yml
 
   - name: appdata
     buildsystem: simple
@@ -69,16 +49,22 @@ modules:
           url: https://api.github.com/repos/lavenderdotpet/LibreQuake/releases/latest
           version-query: .tag_name
           url-query: ("https://raw.githubusercontent.com/lavenderdotpet/LibreQuake/" + .tag_name + "/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.metainfo.xml")
-      - type: script
-        dest-filename: librequake.sh
-        commands:
-          - /app/bin/quakespasm -basedir /app/extra/librequake $@
+      - type: file
+        path: io.github.lavenderdotpet.LibreQuake.sh
+      - type: file
+        path: io.github.lavenderdotpet.LibreQuake.launcher.sh
     build-commands:
-      - install -Dm644 io.github.lavenderdotpet.LibreQuake.svg -t /app/share/icons/hicolor/scalable/apps/
-      - install -Dm644 io.github.lavenderdotpet.LibreQuake.desktop -t /app/share/applications/
-      - install -Dm644 io.github.lavenderdotpet.LibreQuake.metainfo.xml -t /app/share/metainfo/
-      - install -Dm755 librequake.sh -t /app/bin/
+      - install -Dm755 *.sh -t /app/bin/
       - mkdir -p /app/extra/librequake
+      - install -Dm644 io.github.lavenderdotpet.LibreQuake.svg -t /app/share/icons/hicolor/scalable/apps/
+      - install -Dm644 io.github.lavenderdotpet.LibreQuake.metainfo.xml -t /app/share/metainfo/
+      # Desktop file for the main game
+      - install -Dm644 io.github.lavenderdotpet.LibreQuake.desktop -t /app/share/applications/
+      - desktop-file-edit --set-key=Exec --set-value="io.github.lavenderdotpet.LibreQuake.sh" /app/share/applications/io.github.lavenderdotpet.LibreQuake.desktop
+      # Desktop file for the launcher
+      - install -m644 io.github.lavenderdotpet.LibreQuake.desktop /app/share/applications/io.github.lavenderdotpet.LibreQuake.launcher.desktop
+      - desktop-file-edit --set-key=Name --set-value="LibreQuake Launcher" /app/share/applications/io.github.lavenderdotpet.LibreQuake.launcher.desktop
+      - desktop-file-edit --set-key=Exec --set-value="io.github.lavenderdotpet.LibreQuake.launcher.sh" /app/share/applications/io.github.lavenderdotpet.LibreQuake.launcher.desktop
 
   - name: librequake-data
     sources:
