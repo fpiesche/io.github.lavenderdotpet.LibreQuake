@@ -9,10 +9,11 @@ finish-args:
   - --device=all  # Change to device=input once resolved. See https://discourse.flathub.org/t/support-for-device-input/6645  and https://github.com/flatpak/flatpak/issues/5681
   - --share=ipc
   - --share=network
-  - --socket=fallback-x11
   - --socket=pulseaudio
   - --socket=wayland
-  - --persist=.quakespasm
+  - --socket=fallback-x11
+  - --env=SDL_VIDEO_WAYLAND_WMCLASS=io.github.lavenderdotpet.LibreQuake
+  - --env=SDL_VIDEO_X11_WMCLASS=io.github.lavenderdotpet.LibreQuake
 
 modules:
   - shared-modules/libmad/libmad.json
