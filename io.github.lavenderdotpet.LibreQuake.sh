@@ -9,7 +9,6 @@ function write_engine_config {
     echo "$1" > "${ENGINE_CONFIG}"
 }
 
-
 if [[ ! -f "${HIDE_LAUNCHER}" ]]; then
 #     FALSE "VkQuake (Vulkan renderer)" \
 #     FALSE "fteqw (Multiplayer)" \
