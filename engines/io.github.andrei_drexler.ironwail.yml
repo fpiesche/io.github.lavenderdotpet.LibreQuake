@@ -10,7 +10,7 @@ sources:
       version-query: .tag_name
       url-query: .zipball_url
   - type: patch
-    path: quakespasm-userdir.patch
+    path: io.github.sezero.quakespasm.userdir.patch
 no-autogen: true
 no-make-install: true
 subdir: Quake

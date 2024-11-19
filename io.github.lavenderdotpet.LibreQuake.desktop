@@ -1,0 +1,42 @@
+[Desktop Entry]
+Name=LibreQuake
+Comment=First person shooter
+Icon=io.github.lavenderdotpet.LibreQuake
+Exec=/usr/bin/flatpak run --branch=master --arch=x86_64 --command=io.github.lavenderdotpet.LibreQuake.sh io.github.lavenderdotpet.LibreQuake
+Terminal=false
+Type=Application
+Categories=Game;ActionGame
+Keywords=quake;librequake
+X-Desktop-File-Install-Version=0.28
+X-Flatpak=io.github.lavenderdotpet.LibreQuake
+Actions=ironwail;quakespasm;vkquake;tyrquake;qssm;fteqw
+
+[Desktop Action ironwail]
+Name=Ironwail
+Icon=io.github.lavenderdotpet.LibreQuake.quakespasm
+Exec=/usr/bin/flatpak run --branch=master --arch=x86_64 io.github.lavenderdotpet.LibreQuake ironwail
+
+[Desktop Action quakespasm]
+Name=QuakeSpasm
+Icon=io.github.lavenderdotpet.LibreQuake.quakespasm
+Exec=/usr/bin/flatpak run --branch=master --arch=x86_64 io.github.lavenderdotpet.LibreQuake quakespasm
+
+[Desktop Action vkquake]
+Name=VkQuake
+Icon=io.github.lavenderdotpet.LibreQuake.quakespasm
+Exec=/usr/bin/flatpak run --branch=master --arch=x86_64 io.github.lavenderdotpet.LibreQuake vkquake
+
+[Desktop Action tyrquake]
+Name=TyrQuake
+Icon=io.github.lavenderdotpet.LibreQuake.tyrquake
+Exec=/usr/bin/flatpak run --branch=master --arch=x86_64 io.github.lavenderdotpet.LibreQuake tyr-quake
+
+[Desktop Action qssm]
+Name=QSS-M
+Icon=io.github.lavenderdotpet.LibreQuake.quakespasm
+Exec=/usr/bin/flatpak run --branch=master --arch=x86_64 io.github.lavenderdotpet.LibreQuake qssm
+
+[Desktop Action fteqw]
+Name=fteqw
+Icon=io.github.lavenderdotpet.LibreQuake.fteqw
+Exec=/usr/bin/flatpak run --branch=master --arch=x86_64 io.github.lavenderdotpet.LibreQuake fteqw

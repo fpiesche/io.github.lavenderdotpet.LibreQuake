@@ -1,0 +1,18 @@
+name: fteqw
+buildsystem: simple
+subdir: engine
+sources:
+  - type: git
+    url: https://github.com/fte-team/fteqw.git
+    commit: 22b1bb2d41b57dd1d0e67a26e1bb882eaf3aa6d9
+    x-checker-data:
+      type: json
+      url: https://api.github.com/repos/sezero/quakespasm/branches/master
+      commit-query: .commit.sha
+  - type: patch
+    path: org.fteqw.fteqw.fixpkgconfig.patch
+build-commands:
+  - make gl-rel -j${FLATPAK_BUILDER_N_JOBS}
+  - install -D -m755 release/fteqw-gl /app/bin/fteqw
+  - make sv-rel -j${FLATPAK_BUILDER_N_JOBS}
+  - install -D -m755 release/fteqw-sv /app/bin/fteqw-server

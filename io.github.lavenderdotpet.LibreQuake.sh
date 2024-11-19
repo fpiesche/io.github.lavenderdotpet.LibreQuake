@@ -44,7 +44,7 @@ if [[ ! -f "${HIDE_LAUNCHER}" ]]; then
       write_engine_config "fteqw"
       ;;
     "qss-m"*)
-      write_engine_config "qss-m"
+      write_engine_config "qssm"
       ;;
     "TyrQuake"*)
       write_engine_config "tyrquake"
@@ -60,6 +60,14 @@ exitcode=$?
 if [[ $exitcode -ne 0 ]]; then
   echo "Quitting..."
 elif [[ $exitcode -eq 0 ]]; then
-  echo "Launching LibreQuake using $(cat ${ENGINE_CONFIG})..."
-  $(cat "${ENGINE_CONFIG}") -basedir /app/extra/librequake $@
+  if [[ -f "/app/bin/$1" ]]; then
+    ALL_ARGS=("$@")
+    ENGINE="$1"
+    ARGS=("${all_args[@]:2}")
+  else
+    ENGINE=$(cat "${ENGINE_CONFIG}")
+    ARGS=("$@")
+  fi
+  echo "Launching LibreQuake using ${ENGINE} ${ARGS}..."
+  ${ENGINE} -basedir /app/extra/librequake ${ARGS}
 fi

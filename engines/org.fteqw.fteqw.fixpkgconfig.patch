@@ -1,0 +1,22 @@
+diff --git a/engine/Makefile b/engine/Makefile
+index 77db704..cbd0cea 100644
+--- a/engine/Makefile
++++ b/engine/Makefile
+@@ -469,7 +469,7 @@ endif
+ ifeq ($(FTE_TARGET),linux_amd64)
+ 	FTE_TARGET=linux
+ 	CC=x86_64-linux-gnu-gcc
+-	PKGCONFIG=x86_64-linux-gnu-pkg-config
++	PKGCONFIG=pkg-config
+ 	CXX=x86_64-linux-gnu-g++
+ 	STRIP=x86_64-linux-gnu-strip
+ 	BITS=64
+@@ -700,7 +700,7 @@ ifeq ($(shell LANG=c $(CC) -rdynamic 2>&1 | grep unrecognized),)
+ 	DEBUG_CFLAGS+= -rdynamic
+ endif
+ 
+-PKGCONFIG?=$(ARCH)-pkg-config
++PKGCONFIG?=pkg-config
+ ifeq ($(shell which $(PKGCONFIG) 2> /dev/null),)
+ 	FFS:=$(shell echo $(PKGCONFIG) not found 1>&2 )
+ 	PKGCONFIG=/bin/false #don't end up using eg /usr/include when cross-compiling. makelibs is a valid workaround.

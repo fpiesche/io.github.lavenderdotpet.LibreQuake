@@ -1,0 +1,17 @@
+name: tyrquake
+buildsystem: simple
+sources:
+  - type: archive
+    url: https://api.github.com/repos/sezero/tyrquake/zipball/c0553b4ca60b608b68c133faab4f2462f7c5c195
+    sha256: 42f88a9e21851c55684a7848435b5d2895af0d8f25b139f0a0e178a31214326d
+    dest-filename: tyrquake.zip
+    x-checker-data:
+      type: json
+      url: https://api.github.com/repos/sezero/tyrquake/releases/latest
+      version-query: .commit.sha
+      url-query: ("https://api.github.com/repos/sezero/tyrquake/zipball/" + .commit.sha)
+build-commands:
+  - make -j${FLATPAK_BUILDER_N_JOBS} DEBUG=Y bin/tyr-quake
+  - install -D -m755 bin/tyr-quake /app/bin/tyrquake
+  - make -j${FLATPAK_BUILDER_N_JOBS} DEBUG=Y bin/tyr-qwcl
+  - install -D -m755 bin/tyr-qwcl /app/bin/tyrqwcl

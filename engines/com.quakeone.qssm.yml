@@ -1,0 +1,25 @@
+name: qss-m
+sources:
+  - type: archive
+    url: https://github.com/timbergeron/QSS-M/archive/refs/heads/qsrebase.zip
+    sha256: 1c0eef7a864426f840e013db2e3ca55580edd4ec8abcf3081c90d29d3274601e
+    dest-filename: qssm.zip
+    x-checker-data:
+      type: json
+      url: https://api.github.com/repos/timbergeron/QSS-M/branches/qsrebase
+      version-query: .commit.sha
+      url-query: ("https://api.github.com/repos/timbergeron/QSS-M/zipball/" + .commit.sha)
+  - type: patch
+    path: io.github.sezero.quakespasm.userdir.patch
+  - type: patch
+    path: com.quakeone.qssm.userdirs.patch
+no-autogen: true
+no-make-install: true
+subdir: Quake
+make-args:
+  - DO_USERDIRS=1
+  - USE_SDL2=1
+  - QSS_LDFLAGS=-L/app/lib -Wl,--allow-multiple-definition
+post-install:
+  - install -D -m755 quakespasm /app/bin/qssm
+  - install -D -m644 -t /app/bin/ qssm.pak

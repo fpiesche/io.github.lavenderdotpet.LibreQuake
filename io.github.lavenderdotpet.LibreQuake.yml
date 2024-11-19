@@ -17,8 +17,25 @@ finish-args:
 
 modules:
   - shared-modules/libmad/libmad.json
+  - name: libxmp
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://api.github.com/repos/libxmp/libxmp/zipball/libxmp-4.6.0
+        dest-filename: libxmp.zip
+        sha256: 1955a7c7eb2e6c3ba2da689d115d10f89c6e5e261577e67cd0ad176bea1b97ef
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/libxmp/libxmp/releases/latest
+          version-query: .tag_name | sub("^libxmp-"; "")
+          url-query: .zipball_url
+
   - engines/io.github.sezero.quakespasm.yml
   - engines/io.github.andrei_drexler.ironwail.yml
+  - engines/org.fteqw.fteqw.yml
+  - engines/com.quakeone.qssm.yml
+  - engines/net.disenchant.tyrquake.yml
+  - engines/io.github.novum.vkquake.yml
 
   - name: appdata
     buildsystem: simple
@@ -54,6 +71,14 @@ modules:
         path: io.github.lavenderdotpet.LibreQuake.sh
       - type: file
         path: io.github.lavenderdotpet.LibreQuake.launcher.sh
+      - type: file
+        path: io.github.lavenderdotpet.LibreQuake.desktop
+      - type: file
+        path: engines/io.github.sezero.quakespasm.png
+      - type: file
+        path: engines/net.disenchant.tyrquake.png
+      - type: file
+        path: engines/org.fteqw.fteqw.png
     build-commands:
       - install -Dm755 *.sh -t /app/bin/
       - mkdir -p /app/extra/librequake
@@ -66,6 +91,10 @@ modules:
       - install -m644 io.github.lavenderdotpet.LibreQuake.desktop /app/share/applications/io.github.lavenderdotpet.LibreQuake.launcher.desktop
       - desktop-file-edit --set-key=Name --set-value="LibreQuake Launcher" /app/share/applications/io.github.lavenderdotpet.LibreQuake.launcher.desktop
       - desktop-file-edit --set-key=Exec --set-value="io.github.lavenderdotpet.LibreQuake.launcher.sh" /app/share/applications/io.github.lavenderdotpet.LibreQuake.launcher.desktop
+      # Icons for the engines
+      - install -Dm644 io.github.sezero.quakespasm.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.quakespasm.png
+      - install -Dm644 net.disenchant.tyrquake.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.tyrquake.png
+      - install -Dm644 org.fteqw.fteqw.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.fteqw.png
 
   - name: librequake-data
     sources:

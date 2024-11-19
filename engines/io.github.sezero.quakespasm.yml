@@ -7,10 +7,10 @@ sources:
     x-checker-data:
       type: json
       url: https://api.github.com/repos/sezero/quakespasm/releases/latest
-      version-query: .tag_name
+      version-query: .tag_name | sub("quakespasm-"; "")
       url-query: .zipball_url
   - type: patch
-    path: quakespasm-userdir.patch
+    path: io.github.sezero.quakespasm.userdir.patch
 no-autogen: true
 no-make-install: true
 subdir: Quake
