@@ -11,7 +11,7 @@ sources:
       version-query: .commit.sha
       url-query: ("https://api.github.com/repos/sezero/tyrquake/zipball/" + .commit.sha)
 build-commands:
-  - make -j${FLATPAK_BUILDER_N_JOBS} DEBUG=Y bin/tyr-quake
+  - make -j${FLATPAK_BUILDER_N_JOBS} VID_TARGET=sdl IN_TARGET=sdl DEBUG=Y bin/tyr-quake
   - install -D -m755 bin/tyr-quake /app/bin/tyrquake
-  - make -j${FLATPAK_BUILDER_N_JOBS} DEBUG=Y bin/tyr-qwcl
+  - make -j${FLATPAK_BUILDER_N_JOBS} VID_TARGET=sdl IN_TARGET=sdl DEBUG=Y bin/tyr-qwcl
   - install -D -m755 bin/tyr-qwcl /app/bin/tyrqwcl

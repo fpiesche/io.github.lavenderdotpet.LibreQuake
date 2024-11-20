@@ -11,7 +11,4 @@ sources:
   - type: patch
     path: org.fteqw.fteqw.fixpkgconfig.patch
 build-commands:
-#   - make gl-rel -j${FLATPAK_BUILDER_N_JOBS}
-  - install -D -m755 release/fteqw-gl /app/bin/fteqw
-#   - make sv-rel -j${FLATPAK_BUILDER_N_JOBS}
-  - install -D -m755 release/fteqw-sv /app/bin/fteqw-server
+  - install -D -m755 fteqw /app/bin/fteqw
