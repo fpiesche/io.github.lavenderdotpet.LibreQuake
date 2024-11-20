@@ -10,5 +10,13 @@ sources:
       commit-query: .commit.sha
   - type: patch
     path: org.fteqw.fteqw.fixpkgconfig.patch
+config-opts:
+  - -DFTE_INSTALL_BINDIR=bin
+  - -DFTE_TOOL_MASTER=false
+  - -DFTE_TOOL_QCC=true
+  - -DFTE_TOOL_IQM=false
+  - -DFTE_TOOL_IMAGE=false
+  - -DFTE_TOOL_QTV=false
+  - -DFTE_ENGINE_SERVER_ONLY=false
 build-commands:
   - install -D -m755 fteqw /app/bin/fteqw
