@@ -8,6 +8,7 @@ finish-args:
   # Wayland and X11 fallback
   - --socket=wayland
   - --socket=fallback-x11
+  - --share=ipc
   # Audio and hardware 3D
   - --device=dri
   - --socket=pulseaudio
