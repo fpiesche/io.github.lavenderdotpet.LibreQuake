@@ -5,13 +5,17 @@ sdk: org.freedesktop.Sdk
 command: io.github.lavenderdotpet.LibreQuake.sh
 
 finish-args:
-  - --device=dri
-  - --device=all  # Change to device=input once resolved. See https://discourse.flathub.org/t/support-for-device-input/6645  and https://github.com/flatpak/flatpak/issues/5681
-  - --share=ipc
-  - --share=network
-  - --socket=pulseaudio
+  # Wayland and X11 fallback
   - --socket=wayland
   - --socket=fallback-x11
+  # Audio and hardware 3D
+  - --device=dri
+  - --socket=pulseaudio
+  # Input devices
+  - --device=all  # Change to device=input once resolved. See https://discourse.flathub.org/t/support-for-device-input/6645  and https://github.com/flatpak/flatpak/issues/5681
+  # Network
+  - --share=network
+  # Set SDL environment variables to try and fix window icon
   - --env=SDL_VIDEO_WAYLAND_WMCLASS=io.github.lavenderdotpet.LibreQuake
   - --env=SDL_VIDEO_X11_WMCLASS=io.github.lavenderdotpet.LibreQuake
 

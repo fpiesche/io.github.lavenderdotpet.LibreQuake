@@ -71,19 +71,6 @@ index 33ddc7e4..3fe8f13a 100644
  
  //	unlink (logfilename);
  
-diff --git a/Quake/host.c b/Quake/host.c
-index 6f6fabb9..2ead3079 100644
---- a/Quake/host.c
-+++ b/Quake/host.c
-@@ -1442,7 +1442,7 @@ void Host_Init (void)
- 
- 	LOC_PQ_Init (); // rook / woods #pqteam (added PQ to name)
- 	if (cls.state != ca_dedicated)
--		IPLog_Init ();		// JPG 1.05 - ip address logging // woods #iplog
-+		IPLog_Init (host_parms->userdir);		// JPG 1.05 - ip address logging // woods #iplog
- 
- #ifdef QSS_DATE	//avoid non-determinism.
- 	Con_Printf ("Exe: " ENGINE_NAME_AND_VER "\n");
 diff --git a/Quake/host_cmd.c b/Quake/host_cmd.c
 index 292ad3c0..f2c5a9c2 100644
 --- a/Quake/host_cmd.c
@@ -211,24 +198,15 @@ index 292ad3c0..f2c5a9c2 100644
  		if (f == NULL) // lets not load backup
  		{
 diff --git a/Quake/iplog.c b/Quake/iplog.c
-index 246faa75..7a1807d2 100644
+index 246faa75..316a9cdf 100644
 --- a/Quake/iplog.c
 +++ b/Quake/iplog.c
-@@ -26,7 +26,7 @@ int iplog_full;
- IPLog_Init
- ====================
- */
--void IPLog_Init (void)
-+void IPLog_Init (std::string logdir)
- {
- 	//int p;
- 	FILE *f;
 @@ -52,7 +52,7 @@ void IPLog_Init (void)
  
  	// Attempt to load log data from iplog.dat
  //	Sys_GetLock();
 -	f = fopen(va("%s/id1/iplog.dat",com_basedir), "r");
-+	f = fopen(va("%s/iplog.dat",logdir), "r");
++	f = fopen(va("%s/iplog.dat", getenv("XDG_DATA_HOME")), "r");
  	if (f)
  	{
  		while(fread(&temp, 20, 1, f))
