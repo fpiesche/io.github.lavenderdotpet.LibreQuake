@@ -37,6 +37,6 @@ Icon=io.github.lavenderdotpet.LibreQuake.quakespasm
 Exec=io.github.lavenderdotpet.LibreQuake.sh qssm
 
 [Desktop Action fteqw]
-Name=fteqw
+Name=FTEQW
 Icon=io.github.lavenderdotpet.LibreQuake.fteqw
 Exec=io.github.lavenderdotpet.LibreQuake.sh fteqw

@@ -16,8 +16,8 @@ if [[ ! -f "${HIDE_LAUNCHER}" ]]; then
     TRUE "QuakeSpasm (default)" \
     FALSE "Ironwail (High-performance)" \
     FALSE "VkQuake (Vulkan renderer)" \
-    FALSE "fteqw (Multiplayer)" \
-    FALSE "qss-m (OpenGL 1.x/2.x for older hardware)" \
+    FALSE "FTEQW (Multiplayer)" \
+    FALSE "QSS-M (OpenGL 1.x/2.x for older hardware)" \
     FALSE "TyrQuake (Software rendering)" \
     --title "LibreQuake Launcher" \
     --text "Select which engine to launch" \
