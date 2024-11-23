@@ -10,15 +10,15 @@ function write_engine_config {
 }
 
 if [[ ! -f "${HIDE_LAUNCHER}" ]]; then
-#     FALSE "VkQuake (Vulkan renderer)" \
-#     FALSE "fteqw (Multiplayer)" \
-#     FALSE "qss-m (OpenGL 1.x/2.x for older hardware)" \
-#     FALSE "TyrQuake (Software rendering)" \
 
   CHOICE=$(zenity --list --radiolist --hide-header --modal --width=600 --height=400 \
     --column="" --column="" \
     TRUE "QuakeSpasm (default)" \
     FALSE "Ironwail (High-performance)" \
+    FALSE "VkQuake (Vulkan renderer)" \
+    FALSE "fteqw (Multiplayer)" \
+    FALSE "qss-m (OpenGL 1.x/2.x for older hardware)" \
+    FALSE "TyrQuake (Software rendering)" \
     --title "LibreQuake Launcher" \
     --text "Select which engine to launch" \
     --extra-button "Open mod path" \
