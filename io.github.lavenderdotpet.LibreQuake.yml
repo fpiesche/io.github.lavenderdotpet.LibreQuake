@@ -30,6 +30,7 @@ cleanup:
   - /app/lib/libSPIRV*.a
   - /app/lib/pkgconfig
   - /app/share/applications/fteqw.desktop
+  - /app/share/games
 
 modules:
   # Dependencies
@@ -156,8 +157,6 @@ modules:
           - mkdir -p /app/extra/librequake
           - unzip librequake.zip -d lqtmp && rm librequake.zip
           - mv -v $(find lqtmp -name "id1") /app/extra/librequake/
-          # Move fteqw's csaddon and menusys to id1
-          - cp /app/share/games/quake/id1/*.pk3 /app/extra/librequake/id1/
           - rm -rf lqtmp
     buildsystem: simple
     build-commands:
