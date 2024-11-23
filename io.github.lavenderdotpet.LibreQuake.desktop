@@ -29,7 +29,7 @@ Exec=io.github.lavenderdotpet.LibreQuake.sh vkquake
 [Desktop Action tyrquake]
 Name=TyrQuake
 Icon=io.github.lavenderdotpet.LibreQuake.tyrquake
-Exec=io.github.lavenderdotpet.LibreQuake.sh tyr-quake
+Exec=io.github.lavenderdotpet.LibreQuake.sh tyrquake
 
 [Desktop Action qssm]
 Name=QSS-M
