@@ -78,7 +78,7 @@ modules:
       - type: file
         # TODO: Update to main librequake repo version once https://github.com/lavenderdotpet/LibreQuake/pull/247 is merged
         url: https://raw.githubusercontent.com/fpiesche/LibreQuake/patch-1/docs/flatpak-metadata/io.github.lavenderdotpet.LibreQuake.sh
-        sha256: "c86f5ee766d0ff8185dbb19a47b12ef4f4f1c37b921712bf9217898860e04a19"
+        sha256: "3213b68de77d8ff4304980540e23610ceb8fac6360955c6554dd614396f0c666"
         dest-filename: io.github.lavenderdotpet.LibreQuake.sh
         x-checker-data:
           type: json
