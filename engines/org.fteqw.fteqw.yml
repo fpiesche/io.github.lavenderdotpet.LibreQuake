@@ -9,17 +9,28 @@ sources:
       url: https://api.github.com/repos/fte-team/fteqw/branches/master
       commit-query: .commit.sha
   - type: file
-    path: org.fteqw.fteqw.png
+    path: org.fteqw.fteqw.svg
   - type: patch
     path: org.fteqw.fteqw.fixpkgconfig.patch
+  - type: patch
+    path: org.fteqw.fteqw.fixdownloads.patch
+  - type: patch
+    path: org.fteqw.fteqw.fixhomedir.patch
 config-opts:
   - -DFTE_INSTALL_BINDIR=bin
   - -DFTE_TOOL_MASTER=false
-  - -DFTE_TOOL_QCC=true
+  - -DFTE_TOOL_QCC=false
+  - -DFTE_TOOL_QCCGUI=false
   - -DFTE_TOOL_IQM=false
   - -DFTE_TOOL_IMAGE=false
   - -DFTE_TOOL_QTV=false
   - -DFTE_ENGINE_SERVER_ONLY=false
-build-commands:
+  - -DFTE_CSADDON=false
+  - -DFTE_MENU_SYS=false
+  - -DFTE_PLUG_OPENXR=false
+  - -DFTE_PLUG_CEF=false
+  - -DFTE_PLUG_ODE=false
+  - -DFTE_PLUG_BULLET=false
+post-install:
   - install -D -m755 fteqw /app/bin/fteqw
-  - install -Dm644 org.fteqw.fteqw.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.fteqw.png
+  - install -Dm644 org.fteqw.fteqw.svg /app/share/icons/hicolor/scalable/apps/io.github.lavenderdotpet.LibreQuake.fteqw.svg
