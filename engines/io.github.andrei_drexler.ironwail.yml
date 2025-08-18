@@ -10,7 +10,7 @@ sources:
       version-query: .tag_name
       url-query: .zipball_url
   - type: file
-    path: io.github.sezero.quakespasm.png
+    path: io.github.andrei_drexler.ironwail.png
   - type: patch
     path: io.github.sezero.quakespasm.userdir_log.patch
   - type: patch
@@ -25,4 +25,4 @@ make-args:
 post-install:
   - install -D -m755 -t /app/bin/ ironwail
   - install -D -m644 -t /app/bin/ ironwail.pak
-  - install -Dm644 ../io.github.sezero.quakespasm.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.quakespasm.png
+  - install -Dm644 ../io.github.andrei_drexler.ironwail.png /app/share/icons/hicolor/256x256/apps/io.github.lavenderdotpet.LibreQuake.ironwail.png
